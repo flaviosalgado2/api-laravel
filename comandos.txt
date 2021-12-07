@@ -1,0 +1,14 @@
+#cria model e migrations ao mesmo tempo
+php artisan make:model Filme -m
+
+#criar as tabelas no banco a partir de migrations
+php artisan migrate
+
+#refazer migrations
+php artisan migrate:refresh
+
+#criar controller com todos os action dentro
+php artisan make:controller NomeController --resource
+
+#criar link simbolico para storage em public
+php artisan storage:link
