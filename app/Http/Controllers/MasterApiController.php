@@ -80,8 +80,11 @@ class MasterApiController extends BaseController
     public function show($id)
     {
         //
-        $data = $this->model->find($id);
-        return response()->json($data);
+        if (!$data = $this->model->find($id)) {
+            return response()->json(['error' => 'Nada foi encontrado!'], 404);
+        } else {
+            return response()->json($data);
+        }
     }
 
     /**

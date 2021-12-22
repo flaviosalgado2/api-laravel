@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModelsClientesTable extends Migration
+class CreateDocumentosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateModelsClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('models_clientes', function (Blueprint $table) {
+        Schema::create('documentos', function (Blueprint $table) {
             $table->id();
+            $table->integer('cliente_id')->unsigned();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('cpf_cnpj', 19)->unique()->comment('Cpf ou Cnpj do Cliente');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateModelsClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('models_clientes');
+        Schema::dropIfExists('documentos');
     }
 }

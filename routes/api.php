@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ClienteApiController;
+use App\Http\Controllers\Api\DocumentoApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,7 @@ use App\Http\Controllers\Api\ClienteApiController;
 // });
 
 //Route::get('clientes', [ClienteApiController::class, 'index']);
-
+Route::get('clientes/{id}/documento', [ClienteApiController::class, 'documento']);
 Route::apiResource('clientes', ClienteApiController::class);
+Route::get('documento/{id}/cliente', [DocumentoApiController::class, 'cliente']);
+Route::apiResource('documento', DocumentoApiController::class);

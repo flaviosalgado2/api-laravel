@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\MasterApiController;
 use Illuminate\Http\Request;
-use App\Models\Cliente;
+use App\Models\Documento;
 
-class ClienteApiController extends MasterApiController
+class DocumentoApiController extends MasterApiController
 {
+    //
     protected $model;
-    protected $path = 'clientes';
-    protected $upload = 'image';
+    protected $upload;
+    protected $path;
 
-    public function __construct(Cliente $clientes, Request $request)
+    public function __construct(Documento $doc, Request $request)
     {
-        $this->model = $clientes;
+        $this->model = $doc;
         $this->request = $request;
     }
 
-    public function documento($id)
+    public function cliente($id)
     {
-        if (!$data = $this->model->with('documento')->find($id)) {
+        if (!$data = $this->model->with('cliente')->find($id)) {
             return response()->json(['error' => 'Nada foi encontrado!'], 404);
         } else {
             return response()->json($data);
