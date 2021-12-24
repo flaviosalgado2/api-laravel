@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ClienteApiController;
 use App\Http\Controllers\Api\DocumentoApiController;
+use App\Http\Controllers\Api\FilmeApiController;
+use App\Http\Controllers\Api\TelefoneApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,15 @@ use App\Http\Controllers\Api\DocumentoApiController;
 // });
 
 //Route::get('clientes', [ClienteApiController::class, 'index']);
+Route::get('clientes/{id}/filmes-alugados', [ClienteApiController::class, 'alugados']);
 Route::get('clientes/{id}/documento', [ClienteApiController::class, 'documento']);
+Route::get('clientes/{id}/telefone', [ClienteApiController::class, 'telefone']);
 Route::apiResource('clientes', ClienteApiController::class);
+
 Route::get('documento/{id}/cliente', [DocumentoApiController::class, 'cliente']);
 Route::apiResource('documento', DocumentoApiController::class);
+
+Route::get('telefone/{id}/cliente', [TelefoneApiController::class, 'cliente']);
+Route::apiResource('telefone', TelefoneApiController::class);
+
+Route::apiResource('filme', FilmeApiController::class);

@@ -22,8 +22,7 @@ class MasterApiController extends BaseController
      */
     public function index()
     {
-        //
-        $data = $this->model->all();
+        $data = $this->model->paginate(10);
         //dd($data); //
         return response()->json($data);
     }
@@ -57,7 +56,7 @@ class MasterApiController extends BaseController
             $name = uniqid(date('His'));
 
             $nameFile = "{$name}.{$extension}";
-            $upload = Image::make($dataForm[$this->upload])->resize(177, 236)->save(storage_path("app/public/{$this->path}/$nameFile", 70));
+            $upload = Image::make($dataForm[$this->upload])->resize($this->width, $this->heigth)->save(storage_path("app/public/{$this->path}/$nameFile", 70));
 
             if (!$upload) {
                 return response()->json(['error' => 'Falha ao fazer upload'], 500);
@@ -128,7 +127,7 @@ class MasterApiController extends BaseController
             $name = uniqid(date('His'));
 
             $nameFile = "{$name}.{$extension}";
-            $upload = Image::make($dataForm[$this->upload])->resize(177, 236)->save(storage_path("app/public/{$this->path}/$nameFile", 70));
+            $upload = Image::make($dataForm[$this->upload])->resize($this->width, $this->heigth)->save(storage_path("app/public/{$this->path}/$nameFile", 70));
 
             if (!$upload) {
                 return response()->json(['error' => 'Falha ao fazer upload'], 500);

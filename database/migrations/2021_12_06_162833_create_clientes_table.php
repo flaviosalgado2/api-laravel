@@ -17,7 +17,7 @@ class CreateClientesTable extends Migration
             $table->increments('id');
             $table->string('nome', 150)->comment('Nome do Cliente');
             $table->string('image', 100)->nullable()->comment('Campo de foto, tipo imagem');
-            
+
             $table->timestamps();
         });
     }
