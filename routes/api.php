@@ -25,6 +25,7 @@ use App\Http\Controllers\Auth\AuthController;
 
 //Route::get('clientes', [ClienteApiController::class, 'index']);,
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/login-refresh', [AuthController::class, 'refresh']);
 Route::get('auth/me', [AuthController::class, 'getAuthenticatedUser']);
 Route::middleware(['apiJWT'])->group(function () {
     /** Informações do usuário logado */
@@ -36,12 +37,15 @@ Route::middleware(['apiJWT'])->group(function () {
     /** Listagem dos usuarios cadastrados, este rota serve de teste para verificar a proteção feita pelo jwt */
     Route::get('/users', [UserController::class, 'index']);
     /*Daqui para baixo você pode ir adiciondo todas as rotas que deverão estar protegidas em sua API*/
+
+    //protegidas pelo JWT
+    Route::get('clientes/{id}/filmes-alugados', [ClienteApiController::class, 'alugados']);
+    Route::get('clientes/{id}/documento', [ClienteApiController::class, 'documento']);
+    Route::get('clientes/{id}/telefone', [ClienteApiController::class, 'telefone']);
+    Route::apiResource('clientes', ClienteApiController::class);
 });
 
-Route::get('clientes/{id}/filmes-alugados', [ClienteApiController::class, 'alugados']);
-Route::get('clientes/{id}/documento', [ClienteApiController::class, 'documento']);
-Route::get('clientes/{id}/telefone', [ClienteApiController::class, 'telefone']);
-Route::apiResource('clientes', ClienteApiController::class);
+
 
 Route::get('documento/{id}/cliente', [DocumentoApiController::class, 'cliente']);
 Route::apiResource('documento', DocumentoApiController::class);

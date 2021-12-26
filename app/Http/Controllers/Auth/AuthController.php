@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
+use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -107,5 +109,21 @@ class AuthController extends Controller
         }
 
         return response()->json(compact('user'));
+    }
+
+    //metodo bugado, ainda estou buscando uma solucao
+    public function refreshToken()
+    {
+        $token = JWTAuth::getToken();
+        if (!$token)
+            return response()->json(['error', 'token_not_send'], 401);
+
+        try {
+            $token = JWTAuth::refresh();
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return response()->json(['token_invalid'], $e->getStatusCode());
+        }
+
+        return response()->json(compact('token'));
     }
 }
